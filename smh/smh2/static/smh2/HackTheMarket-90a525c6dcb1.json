@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "hackthemarket-32aa1",
+  "private_key_id": "90a525c6dcb11f65d7b7ae2c9bf4943c8da01dc9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDfga+H/mwleWi/\n8FJhfsrmYFVY28bi4rEh7iVWtDm6rPYJJT32jzWSCEIrdToysCDx0VzkQOmYBsPC\nrWGiJAzKy4z8UxHEZobmpeTc7n11REHww2Yb2mXuaaKQMyBaZAL8wZHx5xfqkVGL\nKSENqXZefMm/Y/nrKrXJKSrqdoSOznSh7L5tkLkdeLhGYmoq9R126Bnc37otBaac\n9CnACKyUpkutKumnmMaMW9Xmutx1bAmanDDVS6NjYv8i+mWJ+bLNPa2Vl2D55kLk\nQ8Nq9sN5zMNE8bdiVYRYphRuTuDCBmBd6EGuOkQHT94l/OpoMc0GJp8cSME8PRjx\nz6fmTs5bAgMBAAECggEBANgcBSVxlBAH/IjaTk2G05k9vEhW+U+X8b3lDqVvTgJ6\nCst8/xTQE/RHl/N9PfCU7MXksfTh7vvYTqCGFMk6IkRT3NZ9W8iTegy6izg0QYqJ\nnVi3FpwH6FdGPLFBPh8oZNsQL5W+5Rkhub7c3eDf4lwqPMiaWqRQf8Up0R0zy6hn\nmPRk4G7U+Zn2j9PF9yYiVhDOlXgLaj5Yg5cV1Jhi1ONoph8KXDApRgp62q6TUqeb\nwXKcaTBv1L1O1miGuNBOF5jDnKB+tlrzCtT+eAra35s3FgHCGdHft1Dec704O0BN\n5QOafUrWQqylFeaBAOfJqH7ArXGnaLJlYaqkrkDVYkECgYEA95RpRHM3/OqQzTwo\nemT4mWnYf3VAvF5nLOesKEL6ibp5T8lrEwGaWKMjcAE6Kr4b+UEa8Rb3uN1+5Yj/\nGuXpezBVVM1TFfLJnWLWlArnxfCJYePEDBPfywJ8e9ORzH1rJQjK2BhuSkuiwj8T\nOUbKNwANPUE/oFANGIoZEnCItUcCgYEA5xutmeTt82/DIbbqnRWdYjM+T7A9FmUV\n+9vlnIfaJUiF88+lGPUGQgGmZD4QtBBC8CJP+rCvW7+hge4m+00hFpZdvZGy1EfP\nJ3XyrNU0Jb+57A7DnZZMk66xk5SEa/rhuw09Nft1XsiKSn3hSpQglGf9Nx7KEH9H\nnEfBmd2ReE0CgYEAnMs386rInXtsYx4jQIhrzLT08JuweNuMmirKo+DvTIR1Sat1\nDV9pgZMn4UpVrTYi/zNVPbRfBIv6TqH5de5/dI4CrKcwZGkTeIJdBPr3GCuixgT6\nZu+7PpV/guhVoN0ZGyY7WKn4R0Mpe714jkCf1j9JIy8MfZnVAWKMSFpOqgcCgYAR\neSM//nILNMkBFI5agBbdJNiyN7X2qn/mAfMzSYYxyXDvRSTLZUMq3GsTKyoiIxSc\niUuYvaEUg8GXTEVAPM2ioo3F1m055ZABAMbvUFNYA03wThF2KbXyeIPOj60PaPGG\nLfMR0MhH+UuTZD8TX22zKsWXVEmcw7LLWxWFJ55nBQKBgQC4fsrhz9SZ7NRgginh\nwcBukvY7x1kD8fv9sjcj+yr3tD55cv2sOsWdbG4ys7otwnyXxJvJhydJFVfkZee1\nZ4cJCC44CFdvpKUyHivf6YYhtq2PntjmNajIW0I/BOsDwaYavU/oZty/kS5X84Wh\neXhrYagGyWBZTzwLG2+9zzId0Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "stockmarkethack@hackthemarket-32aa1.iam.gserviceaccount.com",
+  "client_id": "101616925859175698718",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/stockmarkethack%40hackthemarket-32aa1.iam.gserviceaccount.com"
+}

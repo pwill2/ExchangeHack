@@ -1,0 +1,61 @@
+nav a {
+    color:#fff;
+}
+
+a {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.top-nav {
+    background-color: #283593;
+}
+
+.page-title {
+    font-size: 2em;
+}
+
+.card-title {
+    font-size: 26em;
+}
+
+.card-content-top {
+    height:200px;
+}
+
+.kpi {
+    font-size: 7em;
+}
+
+.kpi-green {
+    color: #76ff03;
+}
+
+.kpi-red {
+    color: #f44336;
+}
+
+.kpi-yellow {
+    color: #fdd835;
+}
+
+.kpi-subtext {
+    font-size: 3em;
+}
+
+.kpi-subtext-full {
+    font-size: 3em;
+}
+
+.kpi-desc {
+    font-size: 1.7em;
+    line-height: 18px;
+}
+
+.card-reveal > .row {
+    line-height:0px;
+}
+
+.card-title {
+    color: #76ff03;
+}

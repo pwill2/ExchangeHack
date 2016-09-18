@@ -1,0 +1,150 @@
+{% load staticfiles %}
+{% load static %}
+
+<html>
+    <head>
+        <!--Import materialize.css -->
+        <link type="text/css" rel="stylesheet" href="{% static 'materialize/bin/materialize.css' %}" media="screen,projection" />
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="{% static 'smh2/style.css' %}" />
+        <!--Let browser know website is optimized for mobile-->
+        <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8">
+        <title>SocialMarketHack</title>
+        <meta name="description" content="Dashboard for MarketHack">
+        <meta name="author" content="parker williams">
+    </head>
+
+    <body onload="initViz(); initViz2();">
+        <nav class="top-nav">
+            <div class="container">
+                <div class="nav-wrapper">
+                    <a class="page-title left">Walmart Dashboard</a>
+                    <div class="valign-wrapper">
+                        <a class="waves-effect waves-light btn-flat indigo darken-4 white-text center-align right" action="/startTrack/" method="POST" id="trackStocks">Track Stocks</a>
+                    </div>
+                </div> <!-- nav-wrapper -->
+            </div>  <!-- container -->
+        </nav>
+
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card medium">
+                    <div class="card-content card-content-top">
+                        <p><span class="kpi kpi-green">74</span><span class="kpi-green kpi-subtext">%</span></p>
+                        <p><span class="kpi-green kpi-desc">RETENTION</span></p>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator blue-text accent-3">view details
+                        </span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title">Target: 70%</span><i class="material-icons right">close</i>
+                        <div id="tabGraph1"></div>
+                        INSERT GRAPH RETENTION
+                    </div>
+                </div>
+            </div> <!-- end of column 1 -->
+
+            <div class="col s12 m4">
+                <div class="card medium">
+                    <div class="card-content card-content-top">
+                        <p><span class="kpi-red kpi-subtext"  id='tweetCount'></span></p>
+                        <p><span class="kpi-red kpi-desc">Tweets Being Analyzed</span></p>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator blue-text accent-3">view details
+                        </span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title red-text"></span><i class="material-icons right">close</i>
+                    </div>
+                </div>
+            </div> <!-- end of column 2 -->
+
+            <div class="col s12 m4">
+                <div class="card medium">
+                    <div class="card-content card-content-top">
+                        <p><span class="kpi-yellow kpi-subtext">$</span><span class="kpi kpi-yellow">72.87</span></p>
+                        <p><span class="kpi-yellow kpi-desc">LAST TRADE</span></p>
+                    </div>
+                <div class="card-content">
+                    <span class="card-title activator blue-text accent-3">view details
+                    </span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title yellow-text">Target: $79.32</span><i class="material-icons right">close</i>
+                    INSERT GRAPH ON STOCK PRICE
+                    </div>
+                </div>
+            </div> <!-- end of column 3 -->
+        </row> <!-- end of row 1-->
+
+        <div class="row">
+            <div class="col s8">
+                <div class="card">
+                    <div class="card-content">
+                        <p><span class="kpi-green kpi-desc">$</span><span class="kpi kpi-green kpi-subtext-full">8,204,185</span><span class="kpi-green kpi-desc"> REVENUE</span></p>
+                    </div>
+                </div>
+            </div> <!-- end of column 1-->
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-content">
+                        <p><span class="kpi-yellow kpi-subtext"><i class="small material-icons"> navigation</i></span><span class="kpi kpi-yellow kpi-subtext-full">4.7</span> <span class="kpi-yellow kpi-desc">PRICE CHANGE</span></p>
+                    </div>
+                </div>
+            </div> <!-- end of column 2-->
+        </div> <!-- end of row 2-->
+
+        <div class="row">
+            <div class="col s9">
+                <div id="followersViz"></div>
+            </div>
+            <div class="col s3">
+                <div class="card-panel blue-grey lighten-5">
+                    <p>The graphic on the left examines the relationship between the sentiment of the tweet and the number of followers the tweeter has. The majority of tweets have less than 1.5k followers. </p>
+                </div>
+            </div>
+        </div> <!-- end of row 3-->
+
+        <div class="row">
+            <div class="col s9">
+                <div id="colorViz"></div>
+            </div>
+            <div class="col s3">
+                <div class="card-panel blue-grey lighten-5">
+                    <p>This graphic is meant to examine if there's a correlation between the background color of the Twitter user and the sentiment of their tweets. There doesn't seem to be a strong correlation either way.  </p>
+                </div>
+            </div>
+        </div> <!-- end of row 4 -->
+
+        {% block footer %}
+            <!--Import jQuery before materialize.js-->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+            <script type="text/javascript" src="{% static 'materialize/bin/materialize.js' %}"></script>
+            <!--Firebase app scripts-->
+            <script type="text/javascript" src="{% static 'smh2/trackstocks.js' %}"></script>
+            <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
+            <script>
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyCY9dqBv4KBKS85Xv91YDk4iTKIa_PsabA",
+                    authDomain: "hackthemarket-32aa1.firebaseapp.com",
+                    databaseURL: "https://hackthemarket-32aa1.firebaseio.com",
+                    storageBucket: "hackthemarket-32aa1.appspot.com",                };
+                firebase.initializeApp(config);
+                var db = firebase.database();
+                var tweetCount = $('#tweetCount');
+                db.ref('counter').on('value', function (snapshot) {
+                    tweetCount.html(snapshot.val().toLocaleString());
+                })
+            </script>
+            <!--Import jQuery before materialize.js-->
+            <script type="text/javascript" src="{% static 'smh2/tableau.js' %}"></script>
+        {% endblock %}
+    </body>
+</html>
