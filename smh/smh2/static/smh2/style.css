@@ -82,3 +82,7 @@ a {
 .company_details > col {
     padding: 0; !important
 }
+
+footer.page-footer {
+    background-color: #b0bec5;
+}
