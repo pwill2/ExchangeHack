@@ -49,17 +49,17 @@ def index(request):
 def startTrack(request):
 
     config = {
-        "apiKey": "AIzaSyCY9dqBv4KBKS85Xv91YDk4iTKIa_PsabA",
-        "authDomain": "hackthemarket-32aa1.firebaseapp.com",
-        "databaseURL": "https://hackthemarket-32aa1.firebaseio.com",
-        "storageBucket": "hackthemarket-32aa1.appspot.com",
-        "serviceAccount": "/Users/pwill2/Desktop/HTN/smh/smh2/static/smh2/HackTheMarket-90a525c6dcb1.json"
+        "apiKey": "AIzaSyCYaZJlTQjeI-SsWTzW6xplKc7Ja7I-s8Q",
+        "authDomain": "exchangehack-143922.firebaseapp.com",
+        "databaseURL": "https://exchangehack-143922.firebaseio.com/",
+        "storageBucket": "exchangehack-143922.appspot.com",
+        "serviceAccount": "/Users/pwill2/Desktop/HTN/smh/smh2/static/smh2/EHKEY.json"
     }
     firebase = pyrebase.initialize_app(config)
     db = firebase.database()
 
-    TRACK_TERMS = ['walmart', 'apple', 'google']
-
+    #TRACK_TERMS = ['walmart', 'apple', 'google', 'gopro']
+    TRACK_TERMS = ['Walmart','Exxon Mobil','Apple','Berkshire Hathaway','McKesson','UnitedHealth Group','CVS Health','General Motors','Ford Motor','AT&T','General Electric','AmerisourceBergen','Verizon','Chevron','Costco','Fannie Mae','Kroger','Amazon.com','Amazon','Walgreens Boots Alliance','Walgreens','HP','Cardinal Health','Express Scripts Holding','J.P. Morgan Chase','Boeing','Microsoft','Bank of America Corp.','Wells Fargo','Home Depot','Citigroup','Phillips 66','IBM','Valero Energy','Anthem','Procter & Gamble','Alphabet','Comcast','Target','Johnson & Johnson','MetLife','Archer Daniels Midland','Marathon Petroleum','Freddie Mac','PepsiCo','United Technologies','Aetna',"Lowe’s",'UPS','AIG','Prudential Financial','Intel','Humana','Disney','Cisco Systems','Pfizer','Dow Chemical','Sysco','FedEx','Caterpillar','Lockheed Martin']
     CONSUMER_KEY = '0zvfK5MNq0dBg4Ymi1aZ3LgeJ'
     CONSUMER_SECRET = 'fXIYNVx5cjKR7dHz8QskYXCBQCNZR07Dsk0qf1TpnqXseVGN9m'
     ACCESS_TOKEN_KEY = '885756391-gy5jzaAGuIkSlVEMo38UTPAFIkYtUxPPDV6U5Xlt'
@@ -73,27 +73,19 @@ def startTrack(request):
     # walmart_pattern = re.compile('(@?[Ww][Aa][Ll][Mm][Aa][Rr][Tt])')
     # apple_pattern = re.compile('(@?[Aa][Pp][Pp][Ll][Ee])')
     # google_pattern = re.compile('(@?[Gg][Oo][Oo][Gg][Ll][Ee])')
-    #
-    # line = item['text']
-    # if walmart_pattern.match(line):
-    #
-    # elif apple_pattern.match(line):
-    #
-    # elif google_pattern.match(line):
 
     counter = db.child('counter').get().val()
     if counter is None:
         counter = 0
     r = api.request('statuses/filter', {'track': TRACK_TERMS})
     for item in r.get_iterator():
-        print(item)
         try:
             google_sentiment = analyze_sentiment(item['text'])
         except:
             google_sentiment = ""
         data = {
-            #'user_description': item.user.description,
-            'user_location': item['user']['location'],
+            #'user_description': item['user']['description'],
+            #'user_location': item['user']['location'],
             'text': item['text'],
             'coords': item['coordinates'],
             'geo': item['geo'],
@@ -106,9 +98,23 @@ def startTrack(request):
             'bg_color': item['user']['profile_background_color'],
             'google_sentiment': google_sentiment
         }
+        # line = item['text']
+        # if walmart_pattern.match(line):
+        #     walmart_magnitude = walmart_magnitude = walmart_magnitude + google_sentiment['documentSentiment']['magnitude']
+        #     walmart_polarity = walmart_polarity = walmart_polarity + google_sentiment['documentSentiment']['polarity']
+        #     walmart_count = walmart_count + 1
+        # elif apple_pattern.match(line):
+        #     apple_magnitude = apple_magnitude + google_sentiment['documentSentiment']['magnitude']
+        #     apple_polarity = apple_polarity + google_sentiment['documentSentiment']['polarity']
+        #     apple_count = apple_count + 1
+        # elif google_pattern.match(line):
+        #     google_magnitude = google_magnitude + ['documentSentiment']['magnitude']
+        #     google_polarity = google_polarity + google_sentiment['documentSentiment']['polarity']
+        #     google_count = google_count + 1
         db.child('tweets').push(data)
         counter = counter + 1
         db.child('counter').set(counter)
+        print(counter)
 
 def terms_conditions(request):
     return HttpResponse("Terms and conditions page.")
