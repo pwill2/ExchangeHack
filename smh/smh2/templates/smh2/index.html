@@ -4,18 +4,17 @@
 <html>
     <head>
         <!--Import materialize.css -->
-        <link type="text/css" rel="stylesheet" href="{% static 'materialize/bin/materialize.css' %}" media="screen,projection" />
+        <link type="text/css" rel="stylesheet" href="{% static 'smh2/css/materialize.min.css' %}" media="screen,projection" />
         <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="{% static 'smh2/style.css' %}" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import custom css-->
+        <link type="text/css" rel="stylesheet" href="{% static 'smh2/css/style.css' %}" />
         <!--Let browser know website is optimized for mobile-->
-        <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta charset="utf-8">
         <title>Exchange Hack</title>
-        <meta name="description" content="Dashboard for MarketHack">
-        <meta name="author" content="parker williams">
+        <meta name="description" content="Dashboard for Exchange Hack">
+        <meta name="author" content="ali wilkin, parker williams">
     </head>
 
     <body onload="initViz(); initViz2();">
@@ -38,8 +37,7 @@
                         <p><span class="kpi-green kpi-desc">AVERAGE TWEET SENTIMENT</span></p>
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator blue-text accent-3">view details
-                        </span>
+                        <span class="card-title activator blue-text accent-3">view details</span>
                     </div>
                     <div class="card-reveal">
                         <span class="card-title black-text">Details: <i class="material-icons right">close</i></span>
@@ -51,12 +49,11 @@
             <div class="col s12 m4">
                 <div class="card medium">
                     <div class="card-content card-content-top">
-                        <p><span class="kpi kpi-green"  id='tweetCount'></span></p>
+                        <p><span class="kpi kpi-green" id='tweetCount'></span></p>
                         <p><span class="kpi-green kpi-desc">TWEETS BEING ANALYZED</span></p>
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator blue-text accent-3">view details
-                        </span>
+                        <span class="card-title activator blue-text accent-3">view details</span>
                     </div>
                     <div class="card-reveal">
                         <span class="card-title black-text">Target: 43k Tweets<i class="material-icons right">close</i></span>
@@ -71,8 +68,7 @@
                         <p><span class="kpi-yellow kpi-desc">LAST TRADE</span></p>
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator blue-text accent-3">view details
-                        </span>
+                        <span class="card-title activator blue-text accent-3">view details</span>
                     </div>
                     <div class="card-reveal">
                         <span class="card-title yellow-text">Target: $79.32<i class="material-icons right">close</i></span>
@@ -186,35 +182,22 @@
           </div>
           <div class="footer-copyright">
             <div class="container">
-            © 2016 Williams and Wilkin, All rights reserved.
+                © 2016 WWLaBs, All rights reserved.
             </div>
           </div>
         </footer>
-
-
         {% block footer %}
             <!--Import jQuery before materialize.js-->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-            <script type="text/javascript" src="{% static 'materialize/bin/materialize.js' %}"></script>
+            <script type="text/javascript" src="{% static 'smh2/js/materialize.min.js' %}"></script>
             <!--Firebase app scripts-->
-            <script type="text/javascript" src="{% static 'smh2/trackstocks.js' %}"></script>
             <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
-            <script>
-                // Initialize Firebase
-                var config = {
-                    apiKey: "AIzaSyCYaZJlTQjeI-SsWTzW6xplKc7Ja7I-s8Q",
-                    authDomain: "exchangehack-143922.firebaseapp.com",
-                    databaseURL: "https://exchangehack-143922.firebaseio.com/",
-                    storageBucket: "exchangehack-143922.appspot.com",                };
-                firebase.initializeApp(config);
-                var db = firebase.database();
-                var tweetCount = $('#tweetCount');
-                db.ref('counter').on('value', function (snapshot) {
-                    tweetCount.html(snapshot.val().toLocaleString());
-                })
-            </script>
-            <!--Import jQuery before materialize.js-->
-            <script type="text/javascript" src="{% static 'smh2/tableau.js' %}"></script>
+            <script type="text/javascript" src="{% static 'smh2/js/trackstocks.js' %}"></script>
+            <script type="text/javascript" src="{% static 'smh2/js/firebase.js' %}"></script>
+            <!--Tableau script-->
+            <script type="text/javascript" src="{% static 'smh2/js/tableau.js' %}"></script>
+            <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.js"></script>
+
         {% endblock %}
     </body>
 </html>

@@ -114,7 +114,7 @@ def startTrack(request):
         db.child('tweets').push(data)
         counter = counter + 1
         db.child('counter').set(counter)
-        print(counter)
+        #print(counter)
 
 def terms_conditions(request):
     return HttpResponse("Terms and conditions page.")
