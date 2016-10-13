@@ -7,7 +7,6 @@ var config = {
 firebase.initializeApp(config);
 var db = firebase.database();
 var tweetCount = $('#tweetCount');
-db.ref('counter').on('value', function (snapshot) {
+db.ref('counter').on('value', function(snapshot) {
     tweetCount.html(snapshot.val().toLocaleString());
-    console.log(tweetCount.html(snapshot.val().toLocaleString()));
 })
