@@ -1,33 +1,9 @@
-{% load staticfiles %}
-{% load static %}
+{% extends "base.html" %}
+{% load material_form %}
 
-<html>
-    <head>
-        <!--Import materialize.css -->
-        <link type="text/css" rel="stylesheet" href="{% static 'smh2/css/materialize.min.css' %}" media="screen,projection" />
-        <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!--Import custom css-->
-        <link type="text/css" rel="stylesheet" href="{% static 'smh2/css/style.css' %}" />
-        <!--Let browser know website is optimized for mobile-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta charset="utf-8">
-        <title>Exchange Hack</title>
-        <meta name="description" content="Dashboard for Exchange Hack">
-        <meta name="author" content="ali wilkin, parker williams">
-    </head>
+{% block title %}User Signup{% endblock %}
 
-    <body><!--onload="initViz(); initViz2();"-->
-        <nav class="top-nav">
-            <!-- <div class="container"> -->
-                <div class="nav-wrapper">
-                    <a class="page-title left">Exchange Hack</a>
-                    <div class="menu-button">
-                        <a class="waves-effect waves-light btn-flat indigo darken-4 white-text center-align right" action="/startTrack/" method="POST" id="trackStocks">Track Stocks</a>
-                    </div>
-                </div> <!-- nav-wrapper -->
-            <!-- </div>  <! container -->
-        </nav>
+{% block content %}
 
         <div class="row">
             <div class="col s12 m4">
@@ -161,43 +137,4 @@
                 </div>
             </div> <!-- end of row 2
         </div> -->
-
-        <footer class="page-footer">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">About Us</h5>
-                <p class="grey-text text-lighten-4">The basics: We collect and analyze data to discover trends in social media #hashtags and the stock market. We're hoping that we can discover a correlation in the process, so that stock market prices could possibly be predicted in turn. </p>
-              </div>
-              <!-- <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                </ul>
-              </div> -->
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-                © 2016 WWLaBS, All rights reserved.
-            </div>
-          </div>
-        </footer>
-        {% block footer %}
-            <!--Import jQuery before materialize.js-->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-            <script type="text/javascript" src="{% static 'smh2/js/materialize.min.js' %}"></script>
-            <!--Firebase app scripts-->
-            <script src="https://www.gstatic.com/firebasejs/3.4.0/firebase.js"></script>
-            <script type="text/javascript" src="{% static 'smh2/js/trackstocks.js' %}"></script>
-            <script type="text/javascript" src="{% static 'smh2/js/firebase.js' %}"></script>
-            <!--Tableau script-->
-            <script type="text/javascript" src="{% static 'smh2/js/tableau.js' %}"></script>
-            <script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.js"></script>
-
-        {% endblock %}
-    </body>
-</html>
+{% endblock %}
