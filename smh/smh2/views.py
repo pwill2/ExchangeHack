@@ -7,10 +7,8 @@ from .models import User, Stock
 import pyrebase
 import json
 import argparse
-import json
 import sys
 import re
-import sys
 
 from googleapiclient import discovery
 import httplib2
@@ -69,6 +67,7 @@ def startTrack(request):
              CONSUMER_SECRET,
              ACCESS_TOKEN_KEY,
              ACCESS_TOKEN_SECRET)
+
 
     # walmart_pattern = re.compile('(@?[Ww][Aa][Ll][Mm][Aa][Rr][Tt])')
     # apple_pattern = re.compile('(@?[Aa][Pp][Pp][Ll][Ee])')
