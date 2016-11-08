@@ -69,10 +69,10 @@ def signup(request):
 class SignupForm(forms.Form):
     username = forms.CharField(label='Username', required=True, max_length=100)
     email = forms.CharField(label='Email', required=True, max_length=100)
-    first_name = forms.CharField(label='First Name:', required=True, max_length=100)
-    last_name = forms.CharField(label='Last Name:', required=True, max_length=100)
-    password = forms.CharField(label='Password:', required=True, max_length=100, widget=forms.PasswordInput())
-    password2 = forms.CharField(label='Confirm Password:', required=True, max_length=100, widget=forms.PasswordInput())
+    first_name = forms.CharField(label='First Name', required=True, max_length=100)
+    last_name = forms.CharField(label='Last Name', required=True, max_length=100)
+    password = forms.CharField(label='Password', required=True, max_length=100, widget=forms.PasswordInput())
+    password2 = forms.CharField(label='Confirm Password', required=True, max_length=100, widget=forms.PasswordInput())
 
     def clean(self):
         if self.cleaned_data.get('password') != self.cleaned_data.get('password2'):
