@@ -47,3 +47,7 @@ class Tweet(models.Model):
     def __str__(self):
         basic_info = 'Screen Name: ' + screen_name + ', Location: ' + location + ', Tweet: ' + text + ', Tweet Polarity: ' + text_polarity + ', Tweet Subjectivity: ' + text_subjectivity
         return self.basic_info
+
+class tenK(models.Model):
+    uid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    
