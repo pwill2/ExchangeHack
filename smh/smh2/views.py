@@ -3,8 +3,14 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 from TwitterAPI import TwitterAPI
-from .models import User, Stock, Tweet
+from .models import Stock, Tweet
 from textblob import TextBlob
+from django.contrib.auth.models import User
+
+from django.conf import settings
+from django.contrib.auth import authenticate, login
+from django import forms
+from django.contrib.auth.decorators import login_required
 
 import pyrebase
 import json
@@ -32,6 +38,54 @@ def index(request):
     #except .DoesNotExist:
         #raise Http404("Page does not exist")
     return render(request, "smh2/index.html")
+
+def signup(request):
+    #validate the form
+    form = SignupForm();
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            u = User()
+            u.username = form.cleaned_data.get('username')
+            print(form.cleaned_data.get('email'))
+            u.email = form.cleaned_data.get('email')
+            u.first_name = form.cleaned_data.get('first_name')
+            u.last_name = form.cleaned_data.get('last_name')
+            u.set_password(form.cleaned_data.get('password'))
+            u.save()
+
+            user = authenticate(username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password'))
+
+            login(request, user)
+
+            return HttpResponseRedirect('/startTrack')
+
+    template_vars = {
+        'form': form,
+    }
+
+    return render(request, 'account/signup.html', template_vars)
+
+class SignupForm(forms.Form):
+    username = forms.CharField(label='Username', required=True, max_length=100)
+    email = forms.CharField(label='Email', required=True, max_length=100)
+    first_name = forms.CharField(label='First Name:', required=True, max_length=100)
+    last_name = forms.CharField(label='Last Name:', required=True, max_length=100)
+    password = forms.CharField(label='Password:', required=True, max_length=100, widget=forms.PasswordInput())
+    password2 = forms.CharField(label='Confirm Password:', required=True, max_length=100, widget=forms.PasswordInput())
+
+    def clean(self):
+        if self.cleaned_data.get('password') != self.cleaned_data.get('password2'):
+            raise forms.ValidationError('Your passwords do not match')
+        return self.cleaned_data
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+		# check uniqueness of the username
+        if User.objects.filter(username=username).count() > 0:
+            raise forms.ValidationError('This username is already taken. Please try another.')
+        return username
+
 
 def textblobSentimentAnalysis(text):
     sentiment = TextBlob(text)
@@ -91,6 +145,7 @@ def startTrack(request):
             db.child('tweets').push(data)
             counter = counter + 1
             db.child('counter').set(counter)
+
 
 def terms_conditions(request):
     return HttpResponse("Terms and conditions page.")
