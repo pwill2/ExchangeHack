@@ -14,10 +14,8 @@ from django.contrib.auth.decorators import login_required
 import pyrebase
 import json
 import argparse
-import json
 import sys
 import re
-import sys
 
 from googleapiclient import discovery
 import httplib2
@@ -117,7 +115,7 @@ def startTrack(request):
              ACCESS_TOKEN_KEY,
              ACCESS_TOKEN_SECRET)
 
-    ##counter = db.child('counter').get().val()
+    counter = db.child('counter').get().val()
     if counter is None:
         counter = 0
     r = api.request('statuses/filter', {'track': TRACK_TERMS})
