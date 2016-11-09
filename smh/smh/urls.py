@@ -20,5 +20,4 @@ urlpatterns = [
     url(r'^smh2/', include('smh2.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^startTrack/', include('smh2.urls')),
-    # url(r'^signup/', include('smh2.urls')),
 ]
