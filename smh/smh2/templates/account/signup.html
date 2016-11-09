@@ -1,20 +1,18 @@
 {% extends "base.html" %}
-{% load material_form %}
 
 {% block title %}User Signup{% endblock %}
 
 {% block content %}
 <br>
 <div class="row">
-  <form method="POST" class="col s6 offset-s3">
-    {% csrf_token %}
-    {% form form=form %}{% endform %}
-    <br>
-    <div class="row center">
-      <div class="col s6 offset-s8">
-        <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
-      </div>
-    </div>
-</form>
+    <form method="POST" class="input-field col s6 offset-s3">
+        {{form}}
+        <br>
+        <div class="row center">
+            <div class="col s6 offset-s8">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>
 {% endblock %}

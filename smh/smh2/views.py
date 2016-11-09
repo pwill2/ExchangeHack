@@ -3,9 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 from TwitterAPI import TwitterAPI
-from .models import Stock, Tweet
+
 from textblob import TextBlob
-from django.contrib.auth.models import User
 
 from django.conf import settings
 from django.contrib.auth import authenticate, login
@@ -23,6 +22,10 @@ import sys
 from googleapiclient import discovery
 import httplib2
 from oauth2client.client import GoogleCredentials
+
+## Import Database Tables
+from django.contrib.auth.models import User
+from .models import Stock, Tweet
 
 
 def get_service():
@@ -47,7 +50,6 @@ def signup(request):
         if form.is_valid():
             u = User()
             u.username = form.cleaned_data.get('username')
-            print(form.cleaned_data.get('email'))
             u.email = form.cleaned_data.get('email')
             u.first_name = form.cleaned_data.get('first_name')
             u.last_name = form.cleaned_data.get('last_name')
@@ -93,15 +95,15 @@ def textblobSentimentAnalysis(text):
 
 def startTrack(request):
 
-    config = {
-        "apiKey": "AIzaSyCYaZJlTQjeI-SsWTzW6xplKc7Ja7I-s8Q",
-        "authDomain": "exchangehack-143922.firebaseapp.com",
-        "databaseURL": "https://exchangehack-143922.firebaseio.com/",
-        "storageBucket": "exchangehack-143922.appspot.com",
-        "serviceAccount": "/Users/pwill2/Desktop/HTN/smh/smh2/static/smh2/EHKEY.json"
-    }
-    firebase = pyrebase.initialize_app(config)
-    db = firebase.database()
+    # config = {
+    #     "apiKey": "AIzaSyCYaZJlTQjeI-SsWTzW6xplKc7Ja7I-s8Q",
+    #     "authDomain": "exchangehack-143922.firebaseapp.com",
+    #     "databaseURL": "https://exchangehack-143922.firebaseio.com/",
+    #     "storageBucket": "exchangehack-143922.appspot.com",
+    #     "serviceAccount": "/Users/pwill2/Desktop/HTN/smh/smh2/static/smh2/EHKEY.json"
+    # }
+    # firebase = pyrebase.initialize_app(config)
+    # db = firebase.database()
 
     TRACK_TERMS = ['walmart', 'apple', 'google', 'gopro']
     #TRACK_TERMS = ['Walmart','Exxon Mobil','Apple','Berkshire Hathaway','McKesson','UnitedHealth Group','CVS Health','General Motors','Ford Motor','AT&T','General Electric','AmerisourceBergen','Verizon','Chevron','Costco','Fannie Mae','Kroger','Amazon.com','Amazon','Walgreens Boots Alliance','Walgreens','HP','Cardinal Health','Express Scripts Holding','J.P. Morgan Chase','Boeing','Microsoft','Bank of America Corp.','Wells Fargo','Home Depot','Citigroup','Phillips 66','IBM','Valero Energy','Anthem','Procter & Gamble','Alphabet','Comcast','Target','Johnson & Johnson','MetLife','Archer Daniels Midland','Marathon Petroleum','Freddie Mac','PepsiCo','United Technologies','Aetna',"Lowe’s",'UPS','AIG','Prudential Financial','Intel','Humana','Disney','Cisco Systems','Pfizer','Dow Chemical','Sysco','FedEx','Caterpillar','Lockheed Martin']
@@ -115,37 +117,53 @@ def startTrack(request):
              ACCESS_TOKEN_KEY,
              ACCESS_TOKEN_SECRET)
 
-    counter = db.child('counter').get().val()
+    ##counter = db.child('counter').get().val()
     if counter is None:
         counter = 0
     r = api.request('statuses/filter', {'track': TRACK_TERMS})
+    t = Tweet()
     for item in r.get_iterator():
-        data = {
-            'lang': item['user']['lang'],
-            'location': item['user']['location'],
-            'name': item['user']['name'],
-            'screen_name': item['user']['screen_name'],
-            'text': item['text'],
-            'time_zone': item['user']['time_zone'],
-            'user_followers': item['user']['followers_count'],
-            'user_is_following': item['user']['friends_count'],
-            'user_tweets': item['user']['statuses_count'],
-            'user_total_likes': item['user']['favourites_count'],
-            'verified': item['user']['verified'],
-        }
+        t.lang = item['user']['lang']
+        t.location = item['user']['location']
+        t.name = item['user']['name']
+        t.screen_name =item['user']['screen_name']
+        t.text = item['text']
+        t.time_zone =item['user']['time_zone']
+        t.user_followers = item['user']['followers_count']
+        t.user_is_following = item['user']['friends_count']
+        t.user_tweets = item['user']['statuses_count']
+        t.user_total_likes = item['user']['favourites_count']
+        t.verified = item['user']['verified']
+
+        textblob_sentiment = textblobSentimentAnalysis(item['text'])
+        t.text_polarity = textblob_sentiment.sentiment.polarity
+        t.text_subjectivity = textblob_sentiment.sentiment.subjectivity
+        print(t)
+        if item['user']['lang'] == 'en':
+            t.save()
+        # data = {
+        #     'lang': item['user']['lang'],
+        #     'location': item['user']['location'],
+        #     'name': item['user']['name'],
+        #     'screen_name': item['user']['screen_name'],
+        #     'text': item['text'],
+        #     'time_zone': item['user']['time_zone'],
+        #     'user_followers': item['user']['followers_count'],
+        #     'user_is_following': item['user']['friends_count'],
+        #     'user_tweets': item['user']['statuses_count'],
+        #     'user_total_likes': item['user']['favourites_count'],
+        #     'verified': item['user']['verified'],
+        # }
         #The polarity score is a float within the range [-1.0, 1.0].
         #The subjectivity is a float within the range [0.0, 1.0]
             #0.0 is very objective
             #1.0 is very subjective
-        textblob_sentiment = textblobSentimentAnalysis(data['text'])
-        data['text_polarity'] = textblob_sentiment.sentiment.polarity
-        data['text_subjectivity'] = textblob_sentiment.sentiment.subjectivity
 
-        if data['lang'] == 'en':
-            db.child('tweets').push(data)
-            counter = counter + 1
-            db.child('counter').set(counter)
 
+        #if data['lang'] == 'en':
+            # db.child('tweets').push(data)
+            # counter = counter + 1
+            # db.child('counter').set(counter)
 
 def terms_conditions(request):
     return HttpResponse("Terms and conditions page.")

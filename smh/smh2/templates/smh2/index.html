@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load material_form %}
 
 {% block title %}User Signup{% endblock %}
 
@@ -27,6 +26,9 @@
                     <div class="card-content card-content-top">
                         <p><span class="kpi kpi-green" id="tweetCount"></span></p>
                         <p><span class="kpi-green kpi-desc">TWEETS BEING ANALYZED</span></p>
+                        <div class="menu-button">
+                            <a class="waves-effect waves-light btn-flat indigo darken-4 white-text center-align right" action="/startTrack/" method="POST" id="trackStocks">Track Stocks</a>
+                        </div>
                     </div>
                     <div class="card-content">
                         <span class="card-title activator blue-text accent-3">view details</span>
