@@ -1,15 +1,15 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
-from django.views import generic
-from TwitterAPI import TwitterAPI
-
-from textblob import TextBlob
-
 from django.conf import settings
 from django.contrib.auth import authenticate, login
-from django import forms
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
+from django.urls import reverse
+from django.views import generic
+from django import forms
+from googleapiclient import discovery
+from oauth2client.client import GoogleCredentials
+from TwitterAPI import TwitterAPI
+from textblob import TextBlob
 
 import pyrebase
 import json
@@ -18,23 +18,52 @@ import json
 import sys
 import re
 import sys
-
-from googleapiclient import discovery
 import httplib2
-from oauth2client.client import GoogleCredentials
 
 ## Import Database Tables
 from django.contrib.auth.models import User
 from .models import Stock, Tweet
 
-
+#Google Service
 def get_service():
+    client = Client.from_service_account_json('/static/smh2/echangehack1-1504793b8e5e.json')
     credentials = GoogleCredentials.get_application_default()
     scoped_credentials = credentials.create_scoped(
         ['https://www.googleapis.com/auth/cloud-platform'])
     http = httplib2.Http()
     scoped_credentials.authorize(http)
     return discovery.build('language', 'v1beta1', http=http)
+
+#Google entiment analysis
+def get_googleSentiment(text):
+    body = {
+        'document': {
+            'type': 'PLAIN_TEXT',
+            'content': text,
+        }
+    }
+
+    service = get_service()
+    request = service.documents.analyzeSentiment(body=body)
+    response = request.execute()
+
+    return response
+
+#Google entity analysis
+def get_googleEntities(text):
+    body = {
+        'document': {
+            'type': 'PLAIN_TEXT',
+            'content': text,
+        },
+        "encodingType": "UTF8"
+    }
+
+    service = get_service()
+    request = service.documents.analyzeEntities(body=body)
+    response = request = execute()
+
+    return response
 
 def index(request):
     #try:
@@ -123,11 +152,12 @@ def startTrack(request):
     r = api.request('statuses/filter', {'track': TRACK_TERMS})
     t = Tweet()
     for item in r.get_iterator():
+        text = item['text']
         t.lang = item['user']['lang']
         t.location = item['user']['location']
         t.name = item['user']['name']
         t.screen_name =item['user']['screen_name']
-        t.text = item['text']
+        t.text = text
         t.time_zone =item['user']['time_zone']
         t.user_followers = item['user']['followers_count']
         t.user_is_following = item['user']['friends_count']
@@ -135,9 +165,19 @@ def startTrack(request):
         t.user_total_likes = item['user']['favourites_count']
         t.verified = item['user']['verified']
 
-        textblob_sentiment = textblobSentimentAnalysis(item['text'])
+        #Sentiment Analysis -> TextBlob
+        textblob_sentiment = textblobSentimentAnalysis(text)
         t.text_polarity = textblob_sentiment.sentiment.polarity
         t.text_subjectivity = textblob_sentiment.sentiment.subjectivity
+
+        #Sentiment Analysis -> Google
+        google_sentiment = get_googleSentiment(text)
+        print(google_sentiment)
+
+        #Entity Analysis -> Google
+        google_entities = get_googleEntities(text)
+        print(google_entities)
+
         print(t)
         if item['user']['lang'] == 'en':
             t.save()
