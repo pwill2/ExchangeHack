@@ -6,8 +6,6 @@ app_name = 'smh2'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^startTrack/$', views.startTrack, name='startTrack'),
-    url(r'^signup/$', views.signup, name='signup'),
-    url(r'^login/$', views.login_user, name='login'),
     url(r'^$', views.terms_conditions, name='terms and conditions'),
     url(r'^$', views.privacy_policy, name='privacy policy'),
 ]
