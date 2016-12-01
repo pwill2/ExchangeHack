@@ -21,5 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^startTrack/', include('smh2.urls')),
     url(r'^account/', include('account.urls')),
-    url(r'^analysis/', include('smh2.urls')),
+    url(r'^analysis/', include('analysis.urls')),
 ]

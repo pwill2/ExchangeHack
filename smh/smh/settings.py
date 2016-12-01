@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # 'material.frontend',
     'material.admin',
     'account',
+    'analysis',
 ]
 
 MIDDLEWARE = [
