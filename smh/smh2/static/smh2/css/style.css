@@ -86,3 +86,7 @@ a {
 footer.page-footer {
     background-color: #b0bec5;
 }
+
+.header {
+    font-weight: 600;
+}

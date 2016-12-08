@@ -139,3 +139,9 @@ def tweet(request):
 
 class TweetForm(forms.Form):
 	tweet = forms.CharField(label='Enter tweet text', required=True, max_length=150, widget=forms.Textarea)
+
+def results(request):
+    return render(request, "analysis/results.html")
+
+def dashboard(request):
+    return render(request, "analysis/dashboard.html")
