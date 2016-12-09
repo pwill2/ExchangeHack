@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
 
+from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login
+
 # Create your views here.
 def signup(request):
     #validate the form
@@ -80,3 +83,7 @@ class LoginForm(forms.Form):
             raise forms.ValidationError('Your username or password is incorrect')
         self.user = user
         return self.cleaned_data
+def logout_user(request):
+    logout(request)
+
+    return HttpResponseRedirect('/startTrack')

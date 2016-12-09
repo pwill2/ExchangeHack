@@ -25,11 +25,19 @@
   <nav class="blue-grey darken-4" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><span class="logo">XH </span>Exchange Hack</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">SIGN UP</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="/analysis/tweet">TWEET</a></li>
+        <li><a href="/analysis/dashboard">DASHBOARD</a></li>
+        <li><a href="/account/logout">LOGOUT</a></li>
+        {% else %}
+        <li><a href="/account/signup">SIGN UP</a></li>
+        <li><a href="/account/login">LOGIN</a></li>
+        {% endif %}
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">SIGN UP</a></li>
+        <li><a href="/account/signup">SIGN UP</a></li>
+        <li><a href="/account/login">LOGIN</a></li>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>

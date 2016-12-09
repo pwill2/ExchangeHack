@@ -162,7 +162,17 @@ def tweet(request):
 			print(error.info())
 			print(json.loads(error.read().decode("utf8", 'ignore')))
 
-			return HttpResponse('Some test values')
+		template_vars = {
+			'tweet': tweet,
+			'characters': text_character_count,
+			'sentiment_polarity': textblob_senitment_polarity,
+			'sentiment_subjectivity': textblob_senitment_subjectivity,
+			'reading': flesch_reading_ease,
+			'grade_level': coleman_liau_index,
+			'scoredLabels': scoredLabels,
+		}
+		print(template_vars)
+		return render(request, 'analysis/results.html', template_vars)
 
 	template_vars = {
 		'form': form,
