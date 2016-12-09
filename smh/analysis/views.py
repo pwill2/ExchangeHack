@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
+from django.contrib.auth.decorators import login_required
 
 import re
 from textblob import TextBlob
@@ -14,7 +15,10 @@ from django.core.serializers.json import DjangoJSONEncoder
 import urllib.request
 import json
 
+from decimal import *
+
 # Create your views here.
+@login_required
 def tweet(request):
 	cached_stop_words = stopwords.words("english")
 	form = TweetForm();
@@ -93,21 +97,11 @@ def tweet(request):
 	        ## Start Readability Analytics
 			if re.search('[a-zA-Z]', text_5):
 				txtstats = textstatistics()
-                # Returns grade level using Lisear Write Formula
-				# linsear_write = txtstats.linsear_write_formula(tweet)
-				# Returns grade level based on 3,000 most commonly used english words
-				# dale_chall = txtstats.dale_chall_readability_score(tweet)
-				# Returns SMOG index score, MAY NOT BE VALID
-				# smog = txtstats.smog_index(tweet)
 				# Returns Gunning Fog index score
                 # 17: College Graduate, 16: College Senior, 15: College Junior, 14: College Sophomore,
                 # 13: College Freshman, 12: Highschool Senior, 11: Highschool Junior, 10: Highschool Sophomore,
                 # 9: Highschool Freshman, 8: Eighth Grade, 7: Seventh Grade, 6: Sixth Grade
 				fog = txtstats.gunning_fog(tweet)
-                # Approximate grade level needed to comprehend text
-				ari = txtstats.automated_readability_index(tweet)
-                # print("length of word count: ", word_count)
-                #if word_count > 2:
                 # Returns grade level using Flesch-Kincaid Grade Forumla
 				flesch_kincaid = txtstats.flesch_kincaid_grade(tweet)
                 # Returns grade level using Coleman-Liau Formula
@@ -116,13 +110,6 @@ def tweet(request):
                 # 90-100 : Very Easy, 80-89 : Easy, 70-79 : Fairly Easy, 60-69 : Standard,
                 # 50-59 : Fairly Difficult, 30-49 : Difficult, 0-29 : Very Confusing
 				flesch_reading_ease = txtstats.flesch_reading_ease(tweet)
-                # Based on all above tests, returns best grade level which text belongs to
-				# standard = txtstats.text_standard(tweet)
-                # else:
-                #     flesch_kincaid = None
-                #     coleman_liau_index = None
-                #     flesch_reading_ease = None
-                #     standard = None
 	        ## End Readability Analytics
 
 		data =  {
@@ -150,15 +137,18 @@ def tweet(request):
 			response = urllib.request.urlopen(req)
 			result = response.read().decode('utf-8')
 			json_object = json.loads(result)
-			scoredLabels = json_object['Results']['output1']['value']['Values'][0][0]
+			scoredLabels = Decimal(json_object['Results']['output1']['value']['Values'][0][0])
 			print(scoredLabels)
+
+			if(scoredLabels > 0):
+				impact = 'Positive'
+			else:
+				impact = 'Negative'
+
 			print(cleaned_tweet)
-			# message = "The applicant will mostly likely be " + scoredLabels + "."
-			# print(json_object)
-			# print(message)
 		except urllib.error.HTTPError as error:
 			print("The request failed with status code: " + str(error.code))
-			# Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
+			# Print the headers - they include the request ID and the timestamp, which are useful for debugging the failure
 			print(error.info())
 			print(json.loads(error.read().decode("utf8", 'ignore')))
 
@@ -169,6 +159,7 @@ def tweet(request):
 			'sentiment_subjectivity': textblob_senitment_subjectivity,
 			'reading': flesch_reading_ease,
 			'grade_level': coleman_liau_index,
+			'impact': impact,
 			'scoredLabels': scoredLabels,
 		}
 		print(template_vars)
@@ -183,8 +174,10 @@ def tweet(request):
 class TweetForm(forms.Form):
 	tweet = forms.CharField(label='Enter tweet text', required=True, max_length=150, widget=forms.Textarea)
 
+@login_required
 def results(request):
     return render(request, "analysis/results.html")
 
+@login_required
 def dashboard(request):
     return render(request, "analysis/dashboard.html")
