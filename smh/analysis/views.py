@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 from .models import tweetAnalysis
 
@@ -167,6 +168,7 @@ def tweet(request):
 		t.fog = fog
 		t.impact = impact
 		t.percent_change = scoredLabels
+		t.date = datetime.today()
 		t.save()
 
 		template_vars = {

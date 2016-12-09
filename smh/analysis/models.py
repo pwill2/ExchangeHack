@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date
 
 # Create your models here.
 
@@ -17,3 +18,4 @@ class tweetAnalysis(models.Model):
     impact = models.CharField(max_length=50)
     # percent change is equal to scored labels that Azure returns
     percent_change = models.DecimalField(max_digits=30, decimal_places=28)
+    date = models.DateField(default=date.today)
