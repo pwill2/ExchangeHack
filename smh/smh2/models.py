@@ -12,9 +12,9 @@ class Stock(models.Model):
     uid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100)
     ticker = models.CharField(max_length=7)
-    openprice = models.DecimalField(max_digits=14, decimal_places=10)
-    closeprice = models.DecimalField(max_digits=14, decimal_places=10)
-    adjcloseprice = models.DecimalField(max_digits=14, decimal_places=10)
+    openprice = models.DecimalField(max_digits=14, decimal_places=10, null=True, blank=True)
+    closeprice = models.DecimalField(max_digits=14, decimal_places=10, null=True, blank=True)
+    adjcloseprice = models.DecimalField(max_digits=14, decimal_places=10, null=True, blank=True)
 
     def __str__(self):
         stock = name + ": " + ticker

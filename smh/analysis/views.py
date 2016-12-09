@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django import forms
 from django.contrib.auth.decorators import login_required
 
+from .models import tweetAnalysis
+
 import re
 from textblob import TextBlob
 from nltk.corpus import stopwords
@@ -141,9 +143,9 @@ def tweet(request):
 			print(scoredLabels)
 
 			if(scoredLabels > 0):
-				impact = 'Positive'
+				impact = 'positive'
 			else:
-				impact = 'Negative'
+				impact = 'negative'
 
 			print(cleaned_tweet)
 		except urllib.error.HTTPError as error:
@@ -151,6 +153,21 @@ def tweet(request):
 			# Print the headers - they include the request ID and the timestamp, which are useful for debugging the failure
 			print(error.info())
 			print(json.loads(error.read().decode("utf8", 'ignore')))
+
+		t = tweetAnalysis()
+		t.user = request.user
+		t.tweet = tweet
+		t.cleaned_tweet = cleaned_tweet
+		t.text_character_count = text_character_count
+		t.textblob_senitment_polarity = textblob_senitment_polarity
+		t.textblob_senitment_subjectivity = textblob_senitment_subjectivity
+		t.flesch_kincaid = flesch_kincaid
+		t.coleman_liau_index = coleman_liau_index
+		t.flesch_reading_ease = flesch_reading_ease
+		t.fog = fog
+		t.impact = impact
+		t.percent_change = scoredLabels
+		t.save()
 
 		template_vars = {
 			'tweet': tweet,
