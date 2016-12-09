@@ -10,6 +10,10 @@ from .textstat import textstatistics
 from .apostrophe import APPOSTROPHES
 from .slang import SLANGS
 
+from django.core.serializers.json import DjangoJSONEncoder
+import urllib.request
+import json
+
 # Create your views here.
 def tweet(request):
 	cached_stop_words = stopwords.words("english")
@@ -71,6 +75,12 @@ def tweet(request):
 			text_5 = " ".join(new_text_5)
 			cleaned_tweet = text_5
 
+			# Character Count
+			text_character_count = 0
+			for word in text_5.split():
+				characters = len(word)
+				text_character_count = text_character_count + characters
+
 
     	## Start TextBlob Sentiment Analysis
 			textblob_hold_sentiment = TextBlob(text_5)
@@ -84,11 +94,11 @@ def tweet(request):
 			if re.search('[a-zA-Z]', text_5):
 				txtstats = textstatistics()
                 # Returns grade level using Lisear Write Formula
-				linsear_write = txtstats.linsear_write_formula(tweet)
+				# linsear_write = txtstats.linsear_write_formula(tweet)
 				# Returns grade level based on 3,000 most commonly used english words
-				dale_chall = txtstats.dale_chall_readability_score(tweet)
+				# dale_chall = txtstats.dale_chall_readability_score(tweet)
 				# Returns SMOG index score, MAY NOT BE VALID
-				smog = txtstats.smog_index(tweet)
+				# smog = txtstats.smog_index(tweet)
 				# Returns Gunning Fog index score
                 # 17: College Graduate, 16: College Senior, 15: College Junior, 14: College Sophomore,
                 # 13: College Freshman, 12: Highschool Senior, 11: Highschool Junior, 10: Highschool Sophomore,
@@ -107,27 +117,50 @@ def tweet(request):
                 # 50-59 : Fairly Difficult, 30-49 : Difficult, 0-29 : Very Confusing
 				flesch_reading_ease = txtstats.flesch_reading_ease(tweet)
                 # Based on all above tests, returns best grade level which text belongs to
-				standard = txtstats.text_standard(tweet)
+				# standard = txtstats.text_standard(tweet)
                 # else:
                 #     flesch_kincaid = None
                 #     coleman_liau_index = None
                 #     flesch_reading_ease = None
                 #     standard = None
 	        ## End Readability Analytics
-			print('Tweet:', tweet)
-			print('Cleaned Tweet: ', cleaned_tweet)
-			print('textblob_hold_sentiment:', textblob_hold_sentiment)
-			print('textblob_senitment_subjectivity:', textblob_senitment_subjectivity)
-			print('linsear_write:', linsear_write)
-			print('dale_chall:', dale_chall)
-			print('smog:', smog)
-			print('Fog:', fog)
-			print('ari:', ari)
-			print('flesch_kincaid:', flesch_kincaid)
-			print('coleman_liau_index', coleman_liau_index)
-			print('standard:', standard)
 
-			print('EVERYTHING SEEMED TO HAVE WORKED')
+		data =  {
+
+		        "Inputs": {
+
+		                "input1":
+		                {
+		                    "ColumnNames": ["Text Character Count", "Textblob Senitment Polarity", "Textblob Senitment Subjectivity", "Flesch Kincaid", "Coleman Liau Index", "Flesch Reading Ease", "Gunning Fog"],
+		                    "Values": [ [ text_character_count, textblob_senitment_polarity, textblob_senitment_subjectivity, flesch_kincaid, coleman_liau_index, flesch_reading_ease, fog ] ]
+		                },        },
+		            "GlobalParameters": {
+		}
+		    }
+
+		body = str.encode(json.dumps(data, cls=DjangoJSONEncoder))
+
+		url = 'https://ussouthcentral.services.azureml.net/workspaces/2c91e5bc8168471f9677a900994c4caa/services/ba80be8f78b54de78be85f4c2c5fac3d/execute?api-version=2.0&details=true'
+		api_key = '7sWOgvwFvMjQBHcfJu9FydMSG7HGoqAznHD3wNxgHu0nDRLCRtfSIv1CUL6BCmCzf1S4HZHjOoCqbU+hyjBx1w==' # Replace this with the API key for the web service
+		headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
+
+		req = urllib.request.Request(url, body, headers)
+
+		try:
+			response = urllib.request.urlopen(req)
+			result = response.read().decode('utf-8')
+			json_object = json.loads(result)
+			scoredLabels = json_object['Results']['output1']['value']['Values'][0][0]
+			print(scoredLabels)
+			print(cleaned_tweet)
+			# message = "The applicant will mostly likely be " + scoredLabels + "."
+			# print(json_object)
+			# print(message)
+		except urllib.error.HTTPError as error:
+			print("The request failed with status code: " + str(error.code))
+			# Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
+			print(error.info())
+			print(json.loads(error.read().decode("utf8", 'ignore')))
 
 			return HttpResponse('Some test values')
 
