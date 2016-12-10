@@ -5,45 +5,154 @@
 
 {% block content %}
 <br>
-<div class="row">
-  <h1 class="header center black-text">Tableau Dashboard</h1>
-  <h5 class="center italic black-text">The historical impact of tweet characteristics on stock data.</h5>
-</div>
-<div class="row">
+    <div class="row">
+        <h1 class="header center black-text">Tableau Dashboard</h1>
+        <h5 class="center italic black-text">The historical impact of tweet characteristics on stock data.</h5>
+    </div>
+    <div class="row">
+        <div class='tableauPlaceholder' id='viz1481328837793' style='position: relative'>
+            <noscript>
+                <a href='#'>
+                    <img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ex&#47;ExchangeHack&#47;Dashboard1&#47;1_rss.png' style='border: none' />
+                </a>
+            </noscript>
+            <object class='tableauViz'  style='display:none;'>
+                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                <param name='site_root' value='' />
+                <param name='name' value='ExchangeHack&#47;Dashboard1' />
+                <param name='tabs' value='no' />
+                <param name='toolbar' value='yes' />
+                <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ex&#47;ExchangeHack&#47;Dashboard1&#47;1.png' />
+                <param name='animate_transition' value='yes' />
+                <param name='display_static_image' value='yes' />
+                <param name='display_spinner' value='yes' />
+                <param name='display_overlay' value='yes' />
+                <param name='display_count' value='yes' />
+            </object>
+        </div>
 
-<div class='tableauPlaceholder' id='viz1481328837793' style='position: relative'>
-	<noscript>
-	<a href='#'>
-	<img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ex&#47;ExchangeHack&#47;Dashboard1&#47;1_rss.png' style='border: none' />
-	</a></noscript>
-	<object class='tableauViz'  style='display:none;'>
-		<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-		<param name='site_root' value='' />
-		<param name='name' value='ExchangeHack&#47;Dashboard1' />
-		<param name='tabs' value='no' />
-		<param name='toolbar' value='yes' />
-		<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ex&#47;ExchangeHack&#47;Dashboard1&#47;1.png' />
-		<param name='animate_transition' value='yes' />
-		<param name='display_static_image' value='yes' />
-		<param name='display_spinner' value='yes' />
-		<param name='display_overlay' value='yes' />
-		<param name='display_count' value='yes' />
-	</object>
-</div>                
+        <script type='text/javascript'>
+            var divElement = document.getElementById('viz1481328837793');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            vizElement.style.width='100%';
+            vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        </script>
+    </div>
+    <div class="row">
+        <div class="col s3"></div>
+        <div class="col s6">
+            <h5>Automated Readability Index</h5>
+            <p>Provides an approzimate grade level needed to comprehend the text</p>
 
-<script type='text/javascript'>
-	var divElement = document.getElementById('viz1481328837793');
-	var vizElement = divElement.getElementsByTagName('object')[0];
-	vizElement.style.width='100%';
-	vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
-	var scriptElement = document.createElement('script');
-	scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-	vizElement.parentNode.insertBefore(scriptElement, vizElement);                
-</script>
+            <h5>Coleman Liau Grade Level</h5>
+            <p>Returns the grade level of the text calculated using the Coleman Liau calculation</p>
 
+            <h5>Flesch-Kincaid Grade Level</h5>
+            <p>Presents a score as a U.S. grade level</p>
 
+            <h5>Flesch-Kincaid Reading Ease</h5>
+            <p>Gives a score according to the following table:</p>
+            <table>
+                <thead>
+                    <tr>
+                    <th data-field="grade">Grade</th>
+                    <th data-field="range">Range</th>
+                    <th data-field="grade">Grade</th>
+                    <th data-field="range">Range</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fifth Grade</td>
+                        <td>90 - 100</td>
+                        <td>Sixth Grade</td>
+                        <td> 80 - 90</td>
+                    </tr>
+                    <tr>
+                        <td>Seventh Grade</td>
+                        <td>70 - 80</td>
+                        <td>Eighth & Ninth Grade</td>
+                        <td>60 - 70</td>
+                    </tr>
+                    <tr>
+                        <td>Tenth to Twelfth Grade</td>
+                        <td>50 - 60</td>
+                        <td>College</td>
+                        <td>30 - 50</td>
+                    </tr>
+                    <tr>
+                        <td>College Graduate</td>
+                        <td>0 - 30</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
 
-</div>
+            <h5>Gunning Fog Index Score</h5>
+            <p>Gives a score according to the following table:</p>
+            <table>
+                <thead>
+                    <tr>
+                    <th data-field="grade">Grade</th>
+                    <th data-field="range">Range</th>
+                    <th data-field="grade">Grade</th>
+                    <th data-field="range">Range</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>College Gradaute</td>
+                        <td>17</td>
+                        <td>College Senior</td>
+                        <td>16</td>
+                    </tr>
+                    <tr>
+                        <td>College Junior</td>
+                        <td>15</td>
+                        <td>College Sophomore</td>
+                        <td>14</td>
+                    </tr>
+                    <tr>
+                        <td>College Freshman</td>
+                        <td>13</td>
+                        <td>Highschool Senior</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>Highschool Junior</td>
+                        <td>11</td>
+                        <td>Highschool Sophomore</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>Highschool Freshman</td>
+                        <td>9</td>
+                        <td>Eighth Grade</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>Seveth Grade</td>
+                        <td>7</td>
+                        <td>Sixth Grade</td>
+                        <td>6</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5>Linsear Write Grade Level</h5>
+            <p>Returns a grade level calculated using the Linsear-Write formula</p>
+
+            <h5>Polarity</h5>
+            <p>Meansures how polarizing a text is, that is positive (1.0), negative (-1.0), or neutral (0)</p>
+
+            <h5>Subjectivity</h5>
+            <p>Measures the subjectivity (1.0) or objectivity (0.0) of a tweet</p>
+        </div>
+        <div class="col s3"></div>
+    </div>
 
 {% endblock %}
-
