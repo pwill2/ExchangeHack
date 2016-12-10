@@ -180,7 +180,7 @@ def tweet(request):
 			'reading': flesch_reading_ease,
 			'grade_level': coleman_liau_index,
 			'impact': impact,
-			'scoredLabels': percent_change,
+			'scoredLabels': percent_change * 100, #To get value as %
 		}
 		print(template_vars)
 		return render(request, 'analysis/results.html', template_vars)

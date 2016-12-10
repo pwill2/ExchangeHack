@@ -6,12 +6,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 from django import forms
-from googleapiclient import discovery
-from oauth2client.client import GoogleCredentials
-from TwitterAPI import TwitterAPI
 from textblob import TextBlob
 
-import pyrebase
 import json
 import argparse
 import json

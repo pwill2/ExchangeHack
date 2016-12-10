@@ -5,27 +5,50 @@
 
 {% block content %}
 <br>
-  <div class="row">
-    <div class="card col s6 offset-s3" style="height: 350px">
-      <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">Result<i class="material-icons right">more_vert</i></span>
-          <p>This tweet will have a {{ impact }} impact on your company's stock price.</p>
-          <br>
-          <p>Percent Change: {{ scoredLabels }}</p>
-      </div>
-      <br><br><br><br><br><br>
-      <div class="card-action">
-        <a href="#" class="activator">See more details</a>
-      </div>
-      <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">Details<i class="material-icons right">close</i></span>
-        <p>Tweet: {{ tweet }}</p>
-        <p>Characters: {{ characters }}</p>
-        <p>Sentiment Polarity: {{ sentiment_polarity}}</p>
-        <p>Sentiment Subjectivity: {{ sentiment_subjectivity }}</p>
-        <p>Readability: {{ reading }}</p>
-        <p>Grade Level: {{ grade_level }}</p>
-      </div>
-    </div>
-  </div>
+	<div class="row">
+		<div class="col s3"></div>
+		<div class="card col s6">
+			<div class="card-content">
+				<span class="card-title activator grey-text text-darken-4">Result<i class="material-icons right">more_vert</i></span>
+				<p>This tweet will have a <b>{{ impact }}</b> impact on your company's stock price.</p>
+				<br>
+				<p>Percent Change: {{ scoredLabels }} %</p>
+			</div>
+			<br><br><br><br><br><br>
+			<div class="card-action">
+				<a href="#" class="activator">See more details</a>
+			</div>
+			<div class="card-reveal">
+				<span class="card-title grey-text text-darken-4">Details<i class="material-icons right">close</i></span>
+				<p>Tweet: <b>{{ tweet }}</b></p>
+				<p>Characters: <b>{{ characters }}</b></p>
+				<p>Sentiment Polarity: <b>{{ sentiment_polarity}}</b></p>
+				<p>Sentiment Subjectivity: <b>{{ sentiment_subjectivity }}</b></p>
+				<p>Readability: <b>{{ reading }}</b></p>
+				<p>Grade Level: <b>{{ grade_level }}</b></p>
+			</div>
+		</div>
+		<div class="col s3"></div>
+	</div>
+	<div class="row">
+		<div class="col s3"></div>
+		<div class="card col s6">
+			<div class="card-content">
+				<span class="card-title activator grey-text text-darken-4">Analytics Descriptions</span>
+				<h5>Tweet</h5>
+				<h6>The text of the tweet the analsis is being ran on</h6>
+				<h5>Characters</h5>
+				<h6>The number of characters, including spaces, of the tweet text</h6>
+				<h5>Sentiment Polarity</h5>
+				<h6>How polarizing the tweet is: negative(-1.0), neutral(0), positive(1.0)</h6>
+				<h5>Sentiment Subjectivity</h5>
+				<h6>How subjective the tweet text is: very objective(0.0) very subjective(1.0)</h6>
+				<h5>Readability</h5>
+				<h6>A number between 0 and 100. The higher the number the more readable the tweet text is</h6>
+				<h5>Grade Level</h5>
+				<h6>The grade level that the tweet text is characterized as</h6>
+			</div>
+		</div>
+		<div class="col s3"></div>
+  	</div>
 {% endblock %}
