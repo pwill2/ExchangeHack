@@ -141,7 +141,8 @@ def tweet(request):
 			result = response.read().decode('utf-8')
 			json_object = json.loads(result)
 			scoredLabels = Decimal(json_object['Results']['output1']['value']['Values'][0][0])
-			print(scoredLabels)
+
+			percent_change = scoredLabels * 100
 
 			if(scoredLabels > 0):
 				impact = 'positive'
@@ -167,7 +168,7 @@ def tweet(request):
 		t.flesch_reading_ease = flesch_reading_ease
 		t.fog = fog
 		t.impact = impact
-		t.percent_change = scoredLabels
+		t.percent_change = percent_change
 		t.date = datetime.today()
 		t.save()
 
@@ -179,7 +180,7 @@ def tweet(request):
 			'reading': flesch_reading_ease,
 			'grade_level': coleman_liau_index,
 			'impact': impact,
-			'scoredLabels': scoredLabels,
+			'scoredLabels': percent_change,
 		}
 		print(template_vars)
 		return render(request, 'analysis/results.html', template_vars)

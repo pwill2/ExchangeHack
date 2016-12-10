@@ -7,6 +7,7 @@
 <br>
 <div class="row">
     <form method="POST" class="input-field col s6 offset-s3">
+        {% csrf_token %}
         {% form form=form %}{% endform %}
         <br>
         <div class="row center">
