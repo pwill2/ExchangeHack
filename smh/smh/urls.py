@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.http import HttpResponseRedirect, HttpResponse
 
 urlpatterns = [
+    url(r'^$', lambda r: HttpResponseRedirect('analysis/index/')),
     url(r'^smh2/', include('smh2.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^startTrack/', include('smh2.urls')),
