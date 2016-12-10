@@ -90,3 +90,18 @@ footer.page-footer {
 .header {
     font-weight: 600;
 }
+
+.linkedIn:hover {
+    text-decoration: underline;
+}
+
+.centerVert {
+    vertical-align: middle;
+    margin-bottom: 15px;
+
+}
+
+.homepageH1{
+  font-size:70px;
+  color: #b0bec5;
+}

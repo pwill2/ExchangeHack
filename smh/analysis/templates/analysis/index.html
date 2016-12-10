@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load material_form %}
+{% load static %}
+{% block title %}Exchange Hack{% endblock %}
+
+{% block content %}
+
+
+<!--Mask-->
+<div class="view">
+    <!--Intro content-->
+    <div class="full-bg-img center-align">
+
+        <ul style="padding-top:200px">
+          <li>
+              <a href="/account/signup" class="btn btn-primary btn-lg">Sign up</a>
+              <a href="/analysis/tweet" class="btn btn-default btn-lg">Get Hacking</a>
+          </li>
+        </ul>
+    </div>
+    <!--/Intro content-->
+</div>
+<!--/.Mask-->
+<div class="row">
+  <h3 class="center-align" style="padding-top:20px; color:#009688">Ready to start hacking?</h3>
+  <div class="col s4 offset-s2">
+    <div class="card" style="height: 300px; padding:30px;">
+      <h5>About us</h5>
+      <p>We are a team of college students working to make the world of day trading easier. </br> </br> We use Twitter, trending articles, and a myriad of data analytics to socially hack the stocks.</p>
+      <a href="/analysis/about" class="btn btn-primary btn-lg center-align-home" style="display: block; width: 100%;">Read More</a>
+    </div>
+  </div>
+  <div class="col s4">
+    <div class="card" style="height: 300px; padding:30px;">
+      <h5>Stocks get Social</h5>
+      <p>Finally get heard... through your tweets! Learn how your tweets affect a company's stock.</br> </br> Use our carefully analysed data to see how your tweets can affect the business world.</p>
+      <a href="/analysis/dashboard" class="btn btn-primary btn-lg center-align-home" style="display: block; width: 100%;">Dashboard</a>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+<style>
+html,
+body,
+  .view {
+      height: 100%;
+  }
+
+  .view {
+      margin-top: -15px;
+
+      background: url("{% static "smh2/images/home.jpg" %}")no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+  }
+
+  .center-align-home {
+    left:50%;
+
+  }
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load material_form %}
+
+
+{% block title %}My Tweets{% endblock %}
+
+{% block content %}
+<br>
+<div class="row">
+  <a href="/analysis/tweet" class="btn waves-effect waves-light col s1 offset-s10" type="submit" name="action">+ Tweet</a>
+</div>
+<div class="row">
+  <div class="col s10 offset-s1">
+    {% if tweets.count == 0 %}
+      <p>No tweets for this user</p>
+    {% else %}
+      <table class="striped">
+        <thead>
+          <tr>
+              <th data-field="date">Date</th>
+              <th data-field="tweet">Tweet</th>
+              <th data-field="impact">Impact</th>
+              <th data-field="change">Percent Change</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for tweet in tweets %}
+          <tr>
+            <td>{{ tweet.date }}</td>
+            <td>{{ tweet.tweet }}</td>
+            <td>{{ tweet.impact }}</td>
+            <td>{{ tweet.percent_change}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
