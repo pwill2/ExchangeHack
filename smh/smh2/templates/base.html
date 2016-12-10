@@ -26,11 +26,13 @@
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"><span class="logo">XH </span>Exchange Hack</a>
       <ul class="right hide-on-med-and-down">
         {% if user.is_authenticated %}
+        <li><a href="/analysis/about">ABOUT</a></li>
         <li><a href="/analysis/tweet">TWEET</a></li>
         <li><a href="/analysis/tweets">MY TWEETS</a></li>
         <li><a href="/analysis/dashboard">DASHBOARD</a></li>
         <li><a href="/account/logout">LOGOUT</a></li>
         {% else %}
+        <li><a href="/analysis/about">ABOUT</a></li>
         <li><a href="/account/signup">SIGN UP</a></li>
         <li><a href="/account/login">LOGIN</a></li>
         {% endif %}
@@ -45,7 +47,6 @@
   </nav>
   <div>
     {% block content %}{% endblock %}
-    <!-- <h1>SO THIS IS A THING AND IT's WORK</h1> -->
   </div>
 
     <footer class="page-footer teal">
@@ -67,11 +68,18 @@
           <div class="col l6 s12">
             <h5 class="white-text">Connect via LinkedIn</h5>
             <ul>
+<<<<<<< HEAD
               <li><a class="white-text linkedIn" href="https://www.linkedin.com/in/parkeraustinwilliams">Parker Williams</a></li>
               <li><a class="white-text linkedIn" href="https://www.linkedin.com/in/aliciawilkin">Ali Wilkin</a></li>
               <li><a class="white-text linkedIn" href="https://www.linkedin.com/in/gregbird12">Greg Bird</a></li>
               <li><a class="white-text linkedIn" href="https://www.linkedin.com/in/jasonsmitheng">Jason Smith</a></li>
               <li><a class="white-text linkedIn" href="https://www.linkedin.com/in/drakeloud">Drake Loud</a></li>
+=======
+              <li><a class="white-text" href="#!">FACEBOOK</a></li>
+              <li><a class="white-text" href="#!">LINKEDIN</a></li>
+              <li><a class="white-text" href="#!">GOOGLE+</a></li>
+              <li><a class="white-text" href="#!">INSTAGRAM</a></li>
+>>>>>>> origin/master
             </ul>
           </div>
         </div>

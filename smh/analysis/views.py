@@ -21,7 +21,20 @@ import json
 from decimal import *
 
 # Create your views here.
-@login_required
+
+@login_required(login_url='/account/login/')
+def all_tweets(request):
+
+	tweets = tweetAnalysis.objects.all().filter(user=request.user)
+
+	template_vars = {
+		'tweets': tweets
+	}
+
+	return render(request, 'analysis/tweets.html', template_vars)
+
+
+@login_required(login_url='/account/login/')
 def tweet(request):
 	cached_stop_words = stopwords.words("english")
 	form = TweetForm();
@@ -192,13 +205,13 @@ def tweet(request):
 	return render(request, 'analysis/tweet.html', template_vars)
 
 class TweetForm(forms.Form):
-	tweet = forms.CharField(label='Enter tweet text', required=True, max_length=150, widget=forms.Textarea)
+	tweet = forms.CharField(label='Enter tweet text', required=True, max_length=140, widget=forms.Textarea)
 
-@login_required
+@login_required(login_url='/account/login/')
 def results(request):
     return render(request, "analysis/results.html")
 
-@login_required
+@login_required(login_url='/account/login/')
 def dashboard(request):
     return render(request, "analysis/dashboard.html")
 
