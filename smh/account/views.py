@@ -25,7 +25,7 @@ def signup(request):
 
             login(request, user)
 
-            return HttpResponseRedirect('/startTrack')
+            return HttpResponseRedirect('/analysis/index')
 
     template_vars = {
         'form': form,
@@ -63,7 +63,7 @@ def login_user(request):
             # url = request.urlparams[0]
             return HttpResponse('''
                 <script>
-                    window.location.href = '/startTrack/'
+                    window.location.href = '/analysis/index'
                 </script>
             ''')
 
@@ -86,4 +86,4 @@ class LoginForm(forms.Form):
 def logout_user(request):
     logout(request)
 
-    return HttpResponseRedirect('/startTrack')
+    return HttpResponseRedirect('/analysis/index')

@@ -217,3 +217,6 @@ def dashboard(request):
 
 def about(request):
     return render(request, "analysis/about.html")
+
+def index(request):
+    return render(request, "analysis/index.html")
