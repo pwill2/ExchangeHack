@@ -201,3 +201,6 @@ def results(request):
 @login_required
 def dashboard(request):
     return render(request, "analysis/dashboard.html")
+
+def about(request):
+    return render(request, "analysis/about.html")
