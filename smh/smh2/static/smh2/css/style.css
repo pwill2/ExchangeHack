@@ -90,3 +90,13 @@ footer.page-footer {
 .header {
     font-weight: 600;
 }
+
+.linkedIn:hover {
+    text-decoration: underline;
+}
+
+.centerVert {
+    vertical-align: middle;
+    margin-bottom: 15px;
+
+}

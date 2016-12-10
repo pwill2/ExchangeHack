@@ -27,6 +27,7 @@
       <ul class="right hide-on-med-and-down">
         {% if user.is_authenticated %}
         <li><a href="/analysis/tweet">TWEET</a></li>
+        <li><a href="/analysis/tweets">MY TWEETS</a></li>
         <li><a href="/analysis/dashboard">DASHBOARD</a></li>
         <li><a href="/account/logout">LOGOUT</a></li>
         {% else %}
@@ -51,25 +52,39 @@
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
-            <h5 class="white-text">About Us</h5>
-            <p class="grey-text text-lighten-4">We are a team of college students working to make the world of day trading easier. The object of this web app its to socially hack the stock exchanges. We use Twitter, trending articles, and a myriad of data analytics to socially hack the stocks. Here's to simplicity.</p>
+            <h5 class="white-text">Contact</h5>
+            <div class="grey-text text-lighten-4">
+              <ul>
+                <li>BYU IS415 | Information Systems</li>
+                <li>N. Eldon Tanner Building, Campus Dr</li>
+                <li>Provo, UT 84604</li>
+              </ul>
+            </div>
 
 
           </div>
 
-          <div class="col l3 offset-l3 s12">
-            <h5 class="white-text">Connect</h5>
+          <div class="col l6 s12">
+            <h5 class="white-text">Connect via LinkedIn</h5>
             <ul>
-              <li><a class="white-text" href="#!">Something</a></li>
-              <li><a class="white-text" href="#!">Something</a></li>
-              <li><a class="white-text" href="#!">Something</a></li>
-              <li><a class="white-text" href="#!">Something</a></li>
+              <li><a class="white-text linkedIn" href="https://www.linkedin.com/in/parkeraustinwilliams">Parker Williams</a></li>
+              <li><a class="white-text linkedIn" href="https://www.linkedin.com/in/aliciawilkin">Ali Wilkin</a></li>
+              <li><a class="white-text linkedIn" href="https://www.linkedin.com/in/gregbird12">Greg Bird</a></li>
+              <li><a class="white-text linkedIn" href="https://www.linkedin.com/in/jasonsmitheng">Jason Smith</a></li>
+              <li><a class="white-text linkedIn" href="https://www.linkedin.com/in/drakeloud">Drake Loud</a></li>
             </ul>
           </div>
         </div>
       </div>
       <div class="footer-copyright">
         <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <p class="centerVert">Copyright {% now "Y" %}</p><br>
+
+
+            </div>
+          </div>
         </div>
       </div>
     </footer>
