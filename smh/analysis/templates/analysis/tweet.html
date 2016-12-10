@@ -4,7 +4,13 @@
 {% block title %}Tweet{% endblock %}
 
 {% block content %}
-<br>
+
+<div class="container">
+  <div class="row">
+    <h1 class="header center black-text">Analyze your tweet.</h1>
+    <h5 class="center italic grey-text">Go ahead and write whatever tweet you're thinking of posting, and we'll analyze what kind of an impact your tweet will have on the stock market.</h5>
+  </div>
+</div>
 <div class="row">
   <form method="POST" class="col s6 offset-s3">
     {% csrf_token %}
