@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load material_form %}
+{% load staticfiles %}
+
+{% block head %}
+  <script src="{% static 'analysis/tweet.js' %}"></script>
+{% endblock %}
 
 {% block title %}Tweet{% endblock %}
 
@@ -15,6 +20,7 @@
   <form method="POST" class="col s6 offset-s3">
     {% csrf_token %}
     {% form form=form %}{% endform %}
+    <div id="characterCount" style="text-align: right"></div>
     <br>
     <div class="row center">
       <div class="col s6 offset-s3">
