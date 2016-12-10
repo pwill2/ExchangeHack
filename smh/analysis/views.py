@@ -192,7 +192,7 @@ def tweet(request):
 	return render(request, 'analysis/tweet.html', template_vars)
 
 class TweetForm(forms.Form):
-	tweet = forms.CharField(label='Enter tweet text', required=True, max_length=150, widget=forms.Textarea)
+	tweet = forms.CharField(label='Enter tweet text', required=True, max_length=140, widget=forms.Textarea)
 
 @login_required
 def results(request):
